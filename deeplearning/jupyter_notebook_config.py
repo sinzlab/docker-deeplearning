@@ -20,7 +20,16 @@ c.NotebookApp.port = int(os.getenv('PORT', 8888))
 c.NotebookApp.open_browser = False
 c.MultiKernelManager.default_kernel_name = 'python3'
 
+# get rid of token
+c.NotebookApp.token = ''
+
+
 # sets a password if PASSWORD is set in the environment
 if 'PASSWORD' in os.environ:
     c.NotebookApp.password = passwd(os.environ['PASSWORD'])
     del os.environ['PASSWORD']
+else:
+    # set empty password
+    c.NotebookApp.password = ''
+
+

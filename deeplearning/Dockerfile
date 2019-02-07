@@ -82,10 +82,8 @@ RUN cd /usr/lib/python3/dist-packages \
 
 # We have to use `pip` (instead of `pip2`) to upgrade pip, since these two are
 # different and only `pip` works. After the upgrade, we can start using `pip2`.
-RUN pip install pip --upgrade \
- && pip3 install pip --upgrade \
- && pip2 install setuptools \
- && pip3 install setuptools
+
+RUN pip3 install --upgrade pip setuptools
 
 RUN mkdir /usr/.jupyter
 ENV JUPYTER_CONFIG_DIR /usr/.jupyter
@@ -99,16 +97,13 @@ RUN pip3 --no-cache-dir install \
     matplotlib \
     numpy \
     scipy \
-    theano \
-    https://github.com/Lasagne/Lasagne/archive/master.zip \
     sklearn \
     pandas \
     seaborn \
     click \
     mypy \
     boltons \
-    https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.5.0-cp36-cp36m-linux_x86_64.whl \
-    http://download.pytorch.org/whl/cu90/torch-0.3.1-cp36-cp36m-linux_x86_64.whl \
+    torch \
     torchvision \
  && python3 -m ipykernel.kernelspec
 
