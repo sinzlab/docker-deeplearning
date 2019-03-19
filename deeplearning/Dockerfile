@@ -1,4 +1,4 @@
-FROM nvidia/cuda:9.0-cudnn7-devel
+FROM sinzlab/pytorch
 
 MAINTAINER bethgelab (it@bethgelab.org)
 
@@ -20,26 +20,13 @@ RUN apt-get update -qq \
     screen \
     sudo \
     tmux \
-    vim \
-    wget \
     xterm \
-    git \
     zsh \
-    build-essential \
-    curl \
     libcurl3-dev \
     libfreetype6-dev \
     libpng12-dev \
     libzmq3-dev \
-    pkg-config \
-    python-dev \
     rsync \
-    software-properties-common \
-    unzip \
-    zip \
-    python-pip \
-    python3-pip \
-    zlib1g-dev \
     libjs-mathjax \ 
 	libgoogle-perftools-dev \
  && apt-get clean \
@@ -68,43 +55,16 @@ RUN chmod a+x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
-# install python 3.6
-RUN add-apt-repository ppa:jonathonf/python-3.6 \
- && apt-get update \
- && apt-get install -y python3.6 python3.6-dev \
- && rm /usr/bin/python3 \
- && ln /usr/bin/python3.6 /usr/bin/python3 \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN cd /usr/lib/python3/dist-packages \
- && ln -s apt_pkg.cpython-35m-x86_64-linux-gnu.so apt_pkg.cpython-36m-x86_64-linux-gnu.so \
- && ln -s apt_inst.cpython-35m-x86_64-linux-gnu.so apt_inst.cpython-36m-x86_64-linux-gnu.so
-
-# We have to use `pip` (instead of `pip2`) to upgrade pip, since these two are
-# different and only `pip` works. After the upgrade, we can start using `pip2`.
-
-RUN pip3 install --upgrade pip setuptools
-
 RUN mkdir /usr/.jupyter
 ENV JUPYTER_CONFIG_DIR /usr/.jupyter
 COPY jupyter_notebook_config.py /usr/.jupyter/
 
+# Python packages
 RUN pip3 --no-cache-dir install \
-    tqdm \
     ipykernel \
-    jupyter \
-    jupyterlab \
-    matplotlib \
-    numpy \
-    scipy \
-    sklearn \
-    pandas \
-    seaborn \
     click \
     mypy \
     boltons \
-    torch \
-    torchvision \
  && python3 -m ipykernel.kernelspec
 
 # enable jupyter extensions
