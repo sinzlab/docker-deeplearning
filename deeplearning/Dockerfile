@@ -23,7 +23,6 @@ RUN apt-get update -qq \
     zsh \
     libcurl3-dev \
     libfreetype6-dev \
-    libpng12-dev \
     libzmq3-dev \
     rsync \
     libjs-mathjax \ 
