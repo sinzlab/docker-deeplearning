@@ -1,5 +1,4 @@
-FROM sinzlab/pytorch
-
+FROM sinzlab/pytorch:bethgeclusterbase
 MAINTAINER bethgelab (it@bethgelab.org)
 
 USER root
