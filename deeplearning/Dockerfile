@@ -30,9 +30,6 @@ RUN apt-get update -qq \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# fix invalid pointer bug in Tensorboard
-ENV LD_PRELOAD /usr/lib/libtcmalloc_minimal.so.4
-
 # Enable passwordless sudo for all users
 RUN echo '%sudo ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers
 
